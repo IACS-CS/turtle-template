@@ -33,6 +33,13 @@ For each of these functions, you should think about what *parameters* your funct
 would take. For example, a `drawWindows` function might take parameters for
 the `width` and `height` of the windows, OR for the `numberOfPanes` of glass.
 
+If that were the case, the code might look like this:
+
+```javascript
+const drawWindows = (width, height, npanes) => {
+            /* drawing code here ... */
+} 
+```
 
 ## Requirements
 
