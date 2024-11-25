@@ -1,168 +1,59 @@
-Hello friends. This is a very simple interface, designed to help you practice some basic flow control and make a very simple text game.
+This is a very simple interface for creating text and turtle programs.
 
-You can read [documentation](https://thinkle-iacs.github.io/Text-Interface-Sandbox/) here!
+You can read [text interface documentation](https://thinkle-iacs.github.io/Text-Interface-Sandbox/) here.
+You can read [turtle documentation](https://thinkle-iacs.github.io/think-js/way_of_the_program.html#turtle-documentation) here.
 
 ## Your Assignment
-Your assignment is to create a game based on the concept of "binary search." In your game, the computer should
-be narrowing in on a set of options using a binary-search process.
+Your assignment is to create of a simple drawing that the user can customize with commands.
 
-You could think of games such as:
+In addition to creating a working program that uses user input to customize a drawing as output,
+you are also working to make sure you understand how to use *procedures* and *parameters* in this project,
+which we also call "functions" and "arguments."
 
-- The user thinks of a character / team / color and the computer guesses it.
-- The computer helps the user discover their personality type / Hogwarts house / etc.
-- The user thinks of e.g. a word / color / number and the computer narrows in on it.
+You and your group will then be responsible for breaking the parts of the drawing into pieces 
+and implementing each piece with a function (or "procedure," in AP parlance).
 
-You will be expected to understand how you used:
+You then will complete your entire drawing with a function that draws all of the pieces together.
 
-- Selection (if statements)
-- Input and Output
-- Looping
+So, for example, let's say you were drawing a *person*, you might create functions for...
 
-You will also be expected to think about how you tested your program to ensure
-it had valid inputs and outputs.
+drawHead
+drawTorso
+drawLegs
+drawArms
 
-## Creating a Text Interface 
+Or, if you were creating a house, you might create functions for...
 
-To create a text interface, you'll need to import my code
-with the line:
+drawRoof
+drawRectangle
+drawDoor
+drawWindow
 
-```ts
-import {TextInterface} from './textInterface'
-```
+For each of these functions, you should think about what *parameters* your function
+would take. For example, a `drawWindows` function might take parameters for
+the `width` and `height` of the windows, OR for the `numberOfPanes` of glass.
 
-Then you will need to create your interface with a constructor call, which looks like this:
 
-```ts
-const ti = new TextInterface();
-```
+## Requirements
 
-That code is creating a new constant variable, named `ti` which will store your "Text Interface" object created by my library. You don't have to worry about it too much (it's what we call "boilerplate" for now -- some code you'll have to write to get started).
+Your overall program needs to include:
 
-## Using your text interface
+- User Input which customizes the drawing.
+- A drawing which makes use of at least 3 functions.
+- At least one function *with* meaningful parameters written per group member.
 
-### Writing text
+## Environment
 
-Your text interface has some methods which will be handy. To write text onto the screen, you can use the `output` method, which looks like this in practice:
+You can either complete this in a **GitHub Codespace** or in **CodePen**. Here is my pro/con list for the two environments:
 
-```typescript
-ti.output("Hello World!");
-```
+| Platform          | Pros                                   | Cons                                          |
+|--------------------|---------------------------------------|-----------------------------------------------|
+| **GitHub Codespace** | Version control, professional-grade editor, good autocomplete  | Complexity, slower to load in browser, harder to manage |
+| **CodePen**         | Ease of getting started, More user friendly             | Easier to lose track of work, no version control, no autocomplete |
 
-Some important elements of this to understand are:
+- If you want to work in a codepen (or just use a codepen to play around) there are two starters:
 
-1. You are *calling* the method named *output* which is part of the *object* *ti*.
-2. You are *passing* an *argument* which tells output *what* to output.
-3. The argument you pass to *output* needs to be a string, which is a representation of a word or words. In JavaScript, strings are written between quotes. You can use double or single quotes, or you can use backticks, which have special properties we'll learn about later. So any of the following would work:
+   - [Synchronous (if you'll do all of your text input and *then* do the drawing all at once)](https://codepen.io/thinkle-iacs/pen/rNXEbzz)
+   - [Asynchronous (if you want to mix commands and drawing as you go)](https://codepen.io/thinkle-iacs/details/OJKerRK)
 
-```typescript
-ti.output('Hello world');
-ti.output("Hello world");
-ti.output(`Hello world`);
-```
-
-If you want to make the text appear slower or faster, you can change the outputAnimationLength property of your Text Interface, which determines how many milliseconds the computer will take to "type" the output. To make it faster, you could do this:
-
-```typescript
-ti.outputAnimationLength = 50;
-ti.output('Wow now I am typing really fast');
-```
-
-### Reading Text
-
-Reading input is a little bit trickier. Typically, you will want to *store* the value the user types in a variable, so you'll need to declare a variable. You can do this with the *let* keyword, which is used for variables that change, or with the *const* keyword, which is used for variables that don't change. The advantage of using *const* is that you will get an error if you accidentally try to change a variable later in your code. 
-
-When we *read* text, we need to wait for the user to respond -- because this takes time, we need to use a special keyword `await` before any `read` calls on our *TextInterface* object. This will make the code wait until the user is done typing before moving to the next line.
-
-```typescript
-ti.output('What is your name?');
-let name = await ti.readText();
-```
-
-#### Reading Other Values
-
-I build TextInterface to have a few other convenient reading methods.
-
-* ti.readNumber() - returns a number
-* ti.readYesOrNo() - returns a true or false value
-* ti.readChoice(['A','B','C','D']); - takes a list of choices as an argument and returns one of the choices.
-
-Each of these methods also needs to be called with the special *await* keyword to make sure the computer waits for the user to type a result before continuing on with the next line of your code.
-
-## Writing an if statement
-
-You can write an *if* statement in JavaScript like this:
-
-```typescript
-if (condition) {
-  // statement if condition is truthy
-} else {
-  // statement if condition is falsy
-}
-```
-
-Here's what that looks like in practice with our text interface.
-
-```typescript
-ti.output('What is 2 + 2');
-let answer = await ti.readNumber();
-if (answer == 4) {
-   ti.output('Correct!');
-} else {
-   ti.output("I'm afraid that is wrong");
-}
-```
-
-## Writing Other Output
-
-You can also write some other output using
-
-```typescript
-ti.showImage("https://upload.wikimedia.org/wikipedia/commons/e/e7/Everest_North_Face_toward_Base_Camp_Tibet_Luca_Galuzzi_2006.jpg");
-```
-
-Or arbitrary HTML with
-
-```typescript
-ti.showHTML(`
-<ul>
-  <li>Here is a list</li>
-  <li>of items</li>
-  <li>in html</li>
-</ul>`
-  );
-  ```
-
-## Using a List
-
-If you want to use a list of options, you can define a list like this:
-
-let possibleFruits = ['apple','banana','cherry'];
-
-You can then refer to individual items of a list using the index notation like this:
-
-let firstFruit = possibleFruits[0];
-
-Using lists and list indices, you could take the basic concept of narrowing in 
-on a *number* and apply it to any *ordered list* you can create.
-
-## Writing Functions
-
-Most functions written with the text library should be *async* functions so that you can use await. Especially if you
-are going to use an infinite while loop, make *sure* to remember **await** or you will crash your browser.
-
-For example:
-
-```
-const ti = new TextInterface();
-const askQuestion = async (question, answer) => {
-  await ti.output(question);
-  let userAnswer = await ti.readText();
-  if (userAnswer === answer) {
-    return true;
-  } else {
-    return false;
-  }
-}
-
-let isCorrect = await askQuestion('Who is the best Quarterback in the NFL?', 'Josh Allen');
-```
+- If you want to work in Codespaces, accept the Github Classroom assignment.
